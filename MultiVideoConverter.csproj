@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="icon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediaToolkit" Version="1.1.0.1" />
+    <PackageReference Include="sharpconfig" Version="3.2.9.1" />
+    <PackageReference Include="Xabe.FFmpeg.Downloader" Version="5.2.6" />
+    <PackageReference Include="YoutubeExplode" Version="6.4.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ffmpeg\" />
+    <Folder Include="temp\" />
+  </ItemGroup>
+
+</Project>
