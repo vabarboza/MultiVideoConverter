@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
-            panel1 = new Panel();
             tbControl = new TabControl();
             tabPage1 = new TabPage();
             pbDownloadVideo = new ProgressBar();
@@ -78,14 +77,6 @@
             tabPage3.SuspendLayout();
             SuspendLayout();
             // 
-            // panel1
-            // 
-            panel1.Dock = DockStyle.Top;
-            panel1.Location = new Point(0, 0);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(684, 60);
-            panel1.TabIndex = 0;
-            // 
             // tbControl
             // 
             tbControl.Controls.Add(tabPage1);
@@ -93,11 +84,11 @@
             tbControl.Controls.Add(tabPage3);
             tbControl.Dock = DockStyle.Fill;
             tbControl.ItemSize = new Size(50, 23);
-            tbControl.Location = new Point(0, 60);
+            tbControl.Location = new Point(0, 0);
             tbControl.Multiline = true;
             tbControl.Name = "tbControl";
             tbControl.SelectedIndex = 0;
-            tbControl.Size = new Size(684, 501);
+            tbControl.Size = new Size(684, 491);
             tbControl.TabIndex = 1;
             // 
             // tabPage1
@@ -120,7 +111,7 @@
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
             tabPage1.RightToLeft = RightToLeft.No;
-            tabPage1.Size = new Size(676, 470);
+            tabPage1.Size = new Size(676, 460);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Youtube Downloader";
             // 
@@ -257,7 +248,7 @@
             tabPage2.Location = new Point(4, 27);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(676, 470);
+            tabPage2.Size = new Size(676, 460);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Youtube Music";
             // 
@@ -395,7 +386,7 @@
             tabPage3.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             tabPage3.Location = new Point(4, 27);
             tabPage3.Name = "tabPage3";
-            tabPage3.Size = new Size(676, 470);
+            tabPage3.Size = new Size(676, 460);
             tabPage3.TabIndex = 2;
             tabPage3.Text = "Video Converter";
             // 
@@ -533,9 +524,8 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.MenuBar;
-            ClientSize = new Size(684, 561);
+            ClientSize = new Size(684, 491);
             Controls.Add(tbControl);
-            Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
@@ -553,8 +543,6 @@
         }
 
         #endregion
-
-        private Panel panel1;
         private TabControl tbControl;
         private TabPage tabPage1;
         private TabPage tabPage2;
