@@ -57,26 +57,27 @@
             tbMusicLink = new TextBox();
             label8 = new Label();
             tabPage3 = new TabPage();
-            comboBox3 = new ComboBox();
-            label13 = new Label();
-            comboBox2 = new ComboBox();
-            label12 = new Label();
-            button3 = new Button();
-            progressBar1 = new ProgressBar();
-            label11 = new Label();
-            cbPower = new CheckBox();
-            listBox1 = new ListBox();
-            label10 = new Label();
-            comboBox1 = new ComboBox();
-            label9 = new Label();
-            button2 = new Button();
-            textBox2 = new TextBox();
-            label5 = new Label();
-            button1 = new Button();
-            textBox1 = new TextBox();
-            label4 = new Label();
-            comboBox4 = new ComboBox();
+            cbFormat = new ComboBox();
             label14 = new Label();
+            cbSpeed = new ComboBox();
+            label13 = new Label();
+            cbBits = new ComboBox();
+            label12 = new Label();
+            btnSelectExit = new Button();
+            pbConvert = new ProgressBar();
+            lbConvert = new Label();
+            cbPower = new CheckBox();
+            lbConvertFiles = new ListBox();
+            label10 = new Label();
+            cbCards = new ComboBox();
+            label9 = new Label();
+            btnConvert = new Button();
+            tbConvertExit = new TextBox();
+            label5 = new Label();
+            btnAddConvert = new Button();
+            tbConvertLocal = new TextBox();
+            label4 = new Label();
+            lbPercent = new Label();
             tbControl.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
@@ -375,25 +376,26 @@
             // tabPage3
             // 
             tabPage3.BackColor = SystemColors.MenuBar;
-            tabPage3.Controls.Add(comboBox4);
+            tabPage3.Controls.Add(lbPercent);
+            tabPage3.Controls.Add(cbFormat);
             tabPage3.Controls.Add(label14);
-            tabPage3.Controls.Add(comboBox3);
+            tabPage3.Controls.Add(cbSpeed);
             tabPage3.Controls.Add(label13);
-            tabPage3.Controls.Add(comboBox2);
+            tabPage3.Controls.Add(cbBits);
             tabPage3.Controls.Add(label12);
-            tabPage3.Controls.Add(button3);
-            tabPage3.Controls.Add(progressBar1);
-            tabPage3.Controls.Add(label11);
+            tabPage3.Controls.Add(btnSelectExit);
+            tabPage3.Controls.Add(pbConvert);
+            tabPage3.Controls.Add(lbConvert);
             tabPage3.Controls.Add(cbPower);
-            tabPage3.Controls.Add(listBox1);
+            tabPage3.Controls.Add(lbConvertFiles);
             tabPage3.Controls.Add(label10);
-            tabPage3.Controls.Add(comboBox1);
+            tabPage3.Controls.Add(cbCards);
             tabPage3.Controls.Add(label9);
-            tabPage3.Controls.Add(button2);
-            tabPage3.Controls.Add(textBox2);
+            tabPage3.Controls.Add(btnConvert);
+            tabPage3.Controls.Add(tbConvertExit);
             tabPage3.Controls.Add(label5);
-            tabPage3.Controls.Add(button1);
-            tabPage3.Controls.Add(textBox1);
+            tabPage3.Controls.Add(btnAddConvert);
+            tabPage3.Controls.Add(tbConvertLocal);
             tabPage3.Controls.Add(label4);
             tabPage3.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             tabPage3.Location = new Point(4, 27);
@@ -402,15 +404,34 @@
             tabPage3.TabIndex = 2;
             tabPage3.Text = "Video Converter";
             // 
-            // comboBox3
+            // cbFormat
             // 
-            comboBox3.Font = new Font("Segoe UI", 9F);
-            comboBox3.FormattingEnabled = true;
-            comboBox3.Items.AddRange(new object[] { "Super Rapido", "Rapido", "Medio", "Lento", "Super Lento" });
-            comboBox3.Location = new Point(181, 133);
-            comboBox3.Name = "comboBox3";
-            comboBox3.Size = new Size(150, 23);
-            comboBox3.TabIndex = 37;
+            cbFormat.Font = new Font("Segoe UI", 9F);
+            cbFormat.FormattingEnabled = true;
+            cbFormat.Items.AddRange(new object[] { "MP4", "MKV", "AVI", "HEVC" });
+            cbFormat.Location = new Point(351, 133);
+            cbFormat.Name = "cbFormat";
+            cbFormat.Size = new Size(150, 23);
+            cbFormat.TabIndex = 39;
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Location = new Point(351, 115);
+            label14.Name = "label14";
+            label14.Size = new Size(131, 15);
+            label14.TabIndex = 38;
+            label14.Text = "Formato de conversão";
+            // 
+            // cbSpeed
+            // 
+            cbSpeed.Font = new Font("Segoe UI", 9F);
+            cbSpeed.FormattingEnabled = true;
+            cbSpeed.Items.AddRange(new object[] { "Super Rapido", "Rapido", "Medio", "Lento", "Super Lento" });
+            cbSpeed.Location = new Point(181, 133);
+            cbSpeed.Name = "cbSpeed";
+            cbSpeed.Size = new Size(150, 23);
+            cbSpeed.TabIndex = 37;
             // 
             // label13
             // 
@@ -421,15 +442,15 @@
             label13.TabIndex = 36;
             label13.Text = "Velocidade de conversão";
             // 
-            // comboBox2
+            // cbBits
             // 
-            comboBox2.Font = new Font("Segoe UI", 9F);
-            comboBox2.FormattingEnabled = true;
-            comboBox2.Items.AddRange(new object[] { "Ultra", "Alta", "Media", "Baixa", "Minima" });
-            comboBox2.Location = new Point(8, 133);
-            comboBox2.Name = "comboBox2";
-            comboBox2.Size = new Size(150, 23);
-            comboBox2.TabIndex = 35;
+            cbBits.Font = new Font("Segoe UI", 9F);
+            cbBits.FormattingEnabled = true;
+            cbBits.Items.AddRange(new object[] { "Ultra", "Alta", "Media", "Baixa", "Minima" });
+            cbBits.Location = new Point(8, 133);
+            cbBits.Name = "cbBits";
+            cbBits.Size = new Size(150, 23);
+            cbBits.TabIndex = 35;
             // 
             // label12
             // 
@@ -440,32 +461,33 @@
             label12.TabIndex = 34;
             label12.Text = "Taxa de bits";
             // 
-            // button3
+            // btnSelectExit
             // 
-            button3.FlatStyle = FlatStyle.Flat;
-            button3.Location = new Point(575, 79);
-            button3.Name = "button3";
-            button3.Size = new Size(93, 23);
-            button3.TabIndex = 33;
-            button3.Text = "Selecionar";
-            button3.UseVisualStyleBackColor = true;
+            btnSelectExit.FlatStyle = FlatStyle.Flat;
+            btnSelectExit.Location = new Point(575, 79);
+            btnSelectExit.Name = "btnSelectExit";
+            btnSelectExit.Size = new Size(93, 23);
+            btnSelectExit.TabIndex = 33;
+            btnSelectExit.Text = "Selecionar";
+            btnSelectExit.UseVisualStyleBackColor = true;
+            btnSelectExit.Click += btnSelectExit_Click;
             // 
-            // progressBar1
+            // pbConvert
             // 
-            progressBar1.BackColor = Color.White;
-            progressBar1.Location = new Point(8, 428);
-            progressBar1.Name = "progressBar1";
-            progressBar1.Size = new Size(657, 23);
-            progressBar1.TabIndex = 32;
+            pbConvert.BackColor = Color.White;
+            pbConvert.Location = new Point(8, 428);
+            pbConvert.Name = "pbConvert";
+            pbConvert.Size = new Size(657, 23);
+            pbConvert.TabIndex = 32;
             // 
-            // label11
+            // lbConvert
             // 
-            label11.AutoSize = true;
-            label11.Location = new Point(8, 410);
-            label11.Name = "label11";
-            label11.Size = new Size(83, 15);
-            label11.TabIndex = 31;
-            label11.Text = "Aguardando...";
+            lbConvert.AutoSize = true;
+            lbConvert.Location = new Point(8, 410);
+            lbConvert.Name = "lbConvert";
+            lbConvert.Size = new Size(83, 15);
+            lbConvert.TabIndex = 31;
+            lbConvert.Text = "Aguardando...";
             // 
             // cbPower
             // 
@@ -477,15 +499,15 @@
             cbPower.Text = "Desligar computador ao finalizar";
             cbPower.UseVisualStyleBackColor = true;
             // 
-            // listBox1
+            // lbConvertFiles
             // 
-            listBox1.Font = new Font("Segoe UI", 9F);
-            listBox1.FormattingEnabled = true;
-            listBox1.ItemHeight = 15;
-            listBox1.Location = new Point(8, 187);
-            listBox1.Name = "listBox1";
-            listBox1.Size = new Size(660, 169);
-            listBox1.TabIndex = 29;
+            lbConvertFiles.Font = new Font("Segoe UI", 9F);
+            lbConvertFiles.FormattingEnabled = true;
+            lbConvertFiles.ItemHeight = 15;
+            lbConvertFiles.Location = new Point(8, 187);
+            lbConvertFiles.Name = "lbConvertFiles";
+            lbConvertFiles.Size = new Size(660, 169);
+            lbConvertFiles.TabIndex = 29;
             // 
             // label10
             // 
@@ -496,16 +518,15 @@
             label10.TabIndex = 28;
             label10.Text = "Lista de arquivos para conversão";
             // 
-            // comboBox1
+            // cbCards
             // 
-            comboBox1.Font = new Font("Segoe UI", 9F);
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Items.AddRange(new object[] { "Processador", "Placa de video Nvidia", "Placa de video AMD" });
-            comboBox1.Location = new Point(518, 133);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(150, 23);
-            comboBox1.TabIndex = 27;
-            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
+            cbCards.Font = new Font("Segoe UI", 9F);
+            cbCards.FormattingEnabled = true;
+            cbCards.Items.AddRange(new object[] { "Processador", "Placa de video Nvidia", "Placa de video AMD" });
+            cbCards.Location = new Point(518, 133);
+            cbCards.Name = "cbCards";
+            cbCards.Size = new Size(150, 23);
+            cbCards.TabIndex = 27;
             // 
             // label9
             // 
@@ -516,23 +537,24 @@
             label9.TabIndex = 26;
             label9.Text = "Dispositivo de conversão";
             // 
-            // button2
+            // btnConvert
             // 
-            button2.FlatStyle = FlatStyle.Flat;
-            button2.Location = new Point(8, 374);
-            button2.Name = "button2";
-            button2.Size = new Size(157, 23);
-            button2.TabIndex = 25;
-            button2.Text = "Converter Arquivos";
-            button2.UseVisualStyleBackColor = true;
+            btnConvert.FlatStyle = FlatStyle.Flat;
+            btnConvert.Location = new Point(8, 374);
+            btnConvert.Name = "btnConvert";
+            btnConvert.Size = new Size(157, 23);
+            btnConvert.TabIndex = 25;
+            btnConvert.Text = "Converter Arquivos";
+            btnConvert.UseVisualStyleBackColor = true;
+            btnConvert.Click += btnConvert_Click;
             // 
-            // textBox2
+            // tbConvertExit
             // 
-            textBox2.Font = new Font("Segoe UI", 9F);
-            textBox2.Location = new Point(8, 80);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(558, 23);
-            textBox2.TabIndex = 24;
+            tbConvertExit.Font = new Font("Segoe UI", 9F);
+            tbConvertExit.Location = new Point(8, 80);
+            tbConvertExit.Name = "tbConvertExit";
+            tbConvertExit.Size = new Size(558, 23);
+            tbConvertExit.TabIndex = 24;
             // 
             // label5
             // 
@@ -543,23 +565,24 @@
             label5.TabIndex = 23;
             label5.Text = "Local de saida";
             // 
-            // button1
+            // btnAddConvert
             // 
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Location = new Point(557, 31);
-            button1.Name = "button1";
-            button1.Size = new Size(111, 23);
-            button1.TabIndex = 21;
-            button1.Text = "Adicionar a fila";
-            button1.UseVisualStyleBackColor = true;
+            btnAddConvert.FlatStyle = FlatStyle.Flat;
+            btnAddConvert.Location = new Point(557, 31);
+            btnAddConvert.Name = "btnAddConvert";
+            btnAddConvert.Size = new Size(111, 23);
+            btnAddConvert.TabIndex = 21;
+            btnAddConvert.Text = "Adicionar a fila";
+            btnAddConvert.UseVisualStyleBackColor = true;
+            btnAddConvert.Click += btnAddConvert_Click;
             // 
-            // textBox1
+            // tbConvertLocal
             // 
-            textBox1.Font = new Font("Segoe UI", 9F);
-            textBox1.Location = new Point(8, 31);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(540, 23);
-            textBox1.TabIndex = 20;
+            tbConvertLocal.Font = new Font("Segoe UI", 9F);
+            tbConvertLocal.Location = new Point(8, 31);
+            tbConvertLocal.Name = "tbConvertLocal";
+            tbConvertLocal.Size = new Size(540, 23);
+            tbConvertLocal.TabIndex = 20;
             // 
             // label4
             // 
@@ -570,24 +593,15 @@
             label4.TabIndex = 1;
             label4.Text = "Selecione local com arquivos de video";
             // 
-            // comboBox4
+            // lbPercent
             // 
-            comboBox4.Font = new Font("Segoe UI", 9F);
-            comboBox4.FormattingEnabled = true;
-            comboBox4.Items.AddRange(new object[] { "MP4", "MKV", "AVI", "HEVC" });
-            comboBox4.Location = new Point(351, 133);
-            comboBox4.Name = "comboBox4";
-            comboBox4.Size = new Size(150, 23);
-            comboBox4.TabIndex = 39;
-            // 
-            // label14
-            // 
-            label14.AutoSize = true;
-            label14.Location = new Point(351, 115);
-            label14.Name = "label14";
-            label14.Size = new Size(131, 15);
-            label14.TabIndex = 38;
-            label14.Text = "Formato de conversão";
+            lbPercent.Location = new Point(615, 410);
+            lbPercent.Name = "lbPercent";
+            lbPercent.RightToLeft = RightToLeft.No;
+            lbPercent.Size = new Size(50, 15);
+            lbPercent.TabIndex = 40;
+            lbPercent.Text = "100%";
+            lbPercent.TextAlign = ContentAlignment.MiddleRight;
             // 
             // FormMain
             // 
@@ -642,24 +656,25 @@
         private TextBox tbMusicLink;
         private Label label8;
         private Label label4;
-        private ComboBox comboBox1;
+        private ComboBox cbCards;
         private Label label9;
-        private Button button2;
-        private TextBox textBox2;
+        private Button btnConvert;
+        private TextBox tbConvertExit;
         private Label label5;
-        private Button button1;
-        private TextBox textBox1;
-        private ProgressBar progressBar1;
-        private Label label11;
+        private Button btnAddConvert;
+        private TextBox tbConvertLocal;
+        private ProgressBar pbConvert;
+        private Label lbConvert;
         private CheckBox cbPower;
-        private ListBox listBox1;
+        private ListBox lbConvertFiles;
         private Label label10;
-        private Button button3;
-        private ComboBox comboBox3;
+        private Button btnSelectExit;
+        private ComboBox cbSpeed;
         private Label label13;
-        private ComboBox comboBox2;
+        private ComboBox cbBits;
         private Label label12;
-        private ComboBox comboBox4;
+        private ComboBox cbFormat;
         private Label label14;
+        private Label lbPercent;
     }
 }

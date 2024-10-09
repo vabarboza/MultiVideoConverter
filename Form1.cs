@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Text.RegularExpressions;
 using Xabe.FFmpeg;
 using Xabe.FFmpeg.Downloader;
@@ -356,9 +357,262 @@ namespace MultiVideoConverter
 
         #endregion
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
+        #region Convert
 
+        private void btnAddConvert_Click(object sender, EventArgs e)
+        {
+            using (FolderBrowserDialog dialog = new FolderBrowserDialog())
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    tbConvertLocal.Text = dialog.SelectedPath;
+                    lbConvertFiles.Items.Clear();
+
+                    string[] videoExtensions = { ".mp4", ".mkv", ".avi", ".mov", ".wmv", ".flv", ".webm" };
+
+                    string[] inputFiles = Directory.GetFiles(dialog.SelectedPath, "*.*")
+                                                   .Where(f => videoExtensions.Contains(Path.GetExtension(f).ToLower()))
+                                                   .OrderBy(f => Path.GetFileName(f))
+                                                   .ToArray();
+
+                    foreach (string file in inputFiles)
+                    {
+                        lbConvertFiles.Items.Add(file);
+                    }
+
+                }
+            }
         }
+
+        private void btnSelectExit_Click(object sender, EventArgs e)
+        {
+            using (var folderDialog = new FolderBrowserDialog())
+            {
+                if (folderDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string selectedFolder = folderDialog.SelectedPath;
+                    tbConvertExit.Text = selectedFolder;
+                }
+            }
+        }
+
+        private async void btnConvert_Click(object sender, EventArgs e)
+        {
+            string outputFolder = tbConvertExit.Text;
+
+            if (cbFormat.SelectedItem == null)
+            {
+                MessageBox.Show("Selecione um formato", "Erro");
+                return;
+            }
+
+            if (cbSpeed.SelectedItem == null)
+            {
+                MessageBox.Show("Selecione uma velocidade", "Erro");
+                return;
+            }
+
+            if (cbBits.SelectedItem == null)
+            {
+                MessageBox.Show("Selecione uma taxa de bits", "Erro");
+                return;
+            }
+
+            if (cbCards.SelectedItem == null)
+            {
+                MessageBox.Show("Selecione um dispositivo de conversão", "Erro");
+                return;
+            }
+
+            cbSpeed.Enabled = false;
+            cbBits.Enabled = false;
+            cbCards.Enabled = false;
+            cbFormat.Enabled = false;
+
+            if (lbConvertFiles.Items.Count == 0)
+            {
+                MessageBox.Show("Nenhum arquivo selecionado.");
+                return;
+            }
+
+            if (!Directory.Exists(outputFolder))
+            {
+                MessageBox.Show("Pasta de saída não encontrada. Criando pasta...");
+                Directory.CreateDirectory(outputFolder);
+            }
+
+            List<string> filesToConvert = lbConvertFiles.Items.Cast<string>().ToList();
+
+            foreach (string inputFile in filesToConvert)
+            {
+                string outputFile = Path.Combine(outputFolder, Path.GetFileNameWithoutExtension(inputFile) + ".mp4");
+                await Convert(inputFile, outputFile);
+
+                lbConvertFiles.Items.Remove(inputFile);
+            }
+
+            if (cbPower.Checked)
+            {
+                Process.Start("shutdown", "/s /t 0");
+            }
+            else
+            {
+                MessageBox.Show("Conversão concluída.");
+            }
+
+            cbSpeed.Enabled = true;
+            cbBits.Enabled = true;
+            cbCards.Enabled = true;
+            cbFormat.Enabled = true;
+        }
+
+        private async Task Convert(string inputPath, string outputPath)
+        {
+            try
+            {
+                string ffmpegPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ffmpeg");
+                await FFmpegDownloader.GetLatestVersion(FFmpegVersion.Official, ffmpegPath);
+                FFmpeg.SetExecutablesPath(ffmpegPath);
+
+                var mediaInfo = await FFmpeg.GetMediaInfo(inputPath);
+                var videoStream = mediaInfo.VideoStreams.FirstOrDefault();
+                var audioStream = mediaInfo.AudioStreams.FirstOrDefault();
+                var legend = mediaInfo.SubtitleStreams.FirstOrDefault();
+
+                if (videoStream == null || audioStream == null)
+                {
+                    MessageBox.Show($"Arquivo de entrada {inputPath} não possui streams de vídeo ou áudio válidas.");
+                    return;
+                }
+
+                string selectedCard = cbCards.SelectedItem?.ToString();
+                string selectedBits = cbBits.SelectedItem?.ToString();
+                string selectedSpeed = cbSpeed.SelectedItem?.ToString();
+                string selectedFormat = cbFormat.SelectedItem?.ToString();
+
+                switch (selectedBits)
+                {
+                    case "Ultra":
+                        selectedBits = "6000k";
+                        break;
+                    case "Alta":
+                        selectedBits = "5000k";
+                        break;
+                    case "Media":
+                        selectedBits = "4000k";
+                        break;
+                    case "Baixa":
+                        selectedBits = "3500k";
+                        break;
+                    case "Minima":
+                        selectedBits = "2000k";
+                        break;
+                }
+
+                switch (selectedSpeed)
+                {
+                    case "Super Rapido":
+                        selectedSpeed = "superfast";
+                        break;
+                    case "Rapido":
+                        selectedSpeed = "faster";
+                        break;
+                    case "Medio":
+                        selectedSpeed = "medium";
+                        break;
+                    case "Lento":
+                        selectedSpeed = "slow";
+                        break;
+                    case "Super Lento":
+                        selectedSpeed = "slower";
+                        break;
+                }
+
+                Format videoFormat = new Format();
+
+                switch (selectedFormat)
+                {
+                    case "MP4":
+                        videoFormat = Format.mp4;
+                        break;
+                    case "MKV":
+                        videoFormat = Format.matroska;
+                        break;
+                    case "AVI":
+                        videoFormat = Format.avi;
+                        break;
+                    case "HEVC":
+                        videoFormat = Format.hevc;
+                        break;
+                }
+
+
+                IConversion conversion = FFmpeg.Conversions.New()
+                    .AddStream(videoStream)
+                    .AddStream(audioStream);
+
+                if (legend != null)
+                {
+                    conversion.AddStream(legend);
+                }
+
+                switch (selectedCard)
+                {
+                    case "Processador":
+                        conversion
+                            .AddParameter("-c:v libx265")
+                            .AddParameter($"-preset {selectedSpeed}")
+                            .AddParameter($"-b:v {selectedBits}");
+                        break;
+                    case "Placa de video Nvidia":
+                        conversion
+                            .AddParameter("-c:v hevc_nvenc")
+                            .AddParameter($"-preset {selectedSpeed}")
+                            .AddParameter($"-b:v {selectedBits}");
+                        break;
+                    case "Placa de video AMD":
+                        conversion
+                            .AddParameter("-c:v hevc_amf")
+                            .AddParameter($"-preset {selectedSpeed}")
+                            .AddParameter($"-b:v {selectedBits}");
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+
+                conversion
+                    .SetOutput(outputPath)
+                    .SetOverwriteOutput(true)
+                    .SetOutputFormat(videoFormat);
+
+                conversion.OnProgress += (sender, args) =>
+                {
+                    Invoke(new Action(() =>
+                    {
+                        pbConvert.Value = (int)args.Percent;
+                        lbConvert.Text = $"Convertendo: {Path.GetFileNameWithoutExtension(inputPath).Substring(0, Math.Min(70, Path.GetFileNameWithoutExtension(inputPath).Length))}";
+                        lbPercent.Text = $"{args.Percent}%";
+                    }));
+                };
+
+                await conversion.Start();
+
+                Invoke(new Action(() =>
+                {
+                    lbConvert.Text = $"Conversão concluída: {Path.GetFileName(inputPath)}";
+                }));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao converter o arquivo {inputPath}: {ex.Message}");
+                Invoke(new Action(() =>
+                {
+                    lbConvert.Text = $"Erro: {ex.Message}";
+                }));
+            }
+        }
+
+        #endregion
+
     }
 }
