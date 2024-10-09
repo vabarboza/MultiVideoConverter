@@ -277,6 +277,7 @@ namespace MultiVideoConverter
             {
                 List<string> videoUrls = listBoxLinksMusic.Items.Cast<string>().ToList();
                 await DownloadMusicFromListBox(listMusic, tbLocationMusic.Text);
+                listBoxLinksMusic.Items.Clear();
                 labelStatusMusic.Text = "Downloads em sequência concluídos com sucesso.";
             }
             catch (Exception ex)
@@ -292,7 +293,6 @@ namespace MultiVideoConverter
                 try
                 {
                     await DownloadAndConvertMusic(videoUrl, outputDirectory);
-                    listBoxLinksMusic.Items.Remove(videoUrl);
                 }
                 catch (Exception ex)
                 {
@@ -351,11 +351,14 @@ namespace MultiVideoConverter
 
             // Atualizar ProgressBar e status após conclusão do download
             pbDownloadMusic.Value = 100;
-            listBoxLinksMusic.Items.Clear();
             labelStatusMusic.Text = "Download concluído com sucesso.";
         }
 
         #endregion
 
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
